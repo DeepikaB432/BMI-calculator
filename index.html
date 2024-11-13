@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator</title>
+</head>
+<style>
+    .result-img {
+        width: 200px;
+        height: auto;
+        margin-top: 10px;
+    }
+</style>
+<script>
+    function calculateBtn(){
+
+        const weightInput = document.getElementById("weight").value;
+        const heightInput = document.getElementById("height").value;
+
+        const bmi = weightInput / (heightInput*heightInput);
+        let bmiType = "";
+        let imagePath = "";
+
+        if (bmi < 18.5) {
+            bmiType = "Underweight";
+            imagePath = "underweight.png"; 
+        } else if (bmi >= 18.5 && bmi < 24.9) {
+            bmiType = "Normal weight";
+            imagePath = "https://c7.alamy.com/comp/2GGJX78/bmi-body-mass-index-calculate-illustration-or-infographic-chart-underweight-normal-overweight-and-obese-2GGJX78.jpg"; 
+        } else if (bmi >= 25 && bmi < 29.9) {
+            bmiType = "Overweight";
+            imagePath = "https://c8.alamy.com/comp/2GE9CH8/body-mass-index-chart-on-white-background-2GE9CH8.jpg"; 
+        } else {
+            bmiType = "Obese";
+            imagePath = "obese.png";
+        }
+
+        document.getElementById("bmiResult").innerHTML = 'Results: ' + bmi + ' ('+ bmiType + ')';
+        const bmiImage = document.getElementById('bmiImage')
+        this.bmiImage.src = imagePath;
+        bmiImage.style.display = "block";
+
+    };
+
+    function resetBtn(){
+        document.getElementById("weight").value = '';
+        document.getElementById("height").value = '';
+        document.getElementById("bmiResult").innerHTML = 'Results: ';
+        bmiImage.style.display = "none";
+    }
+</script>
+<body>
+
+    <h1>BMI Calculator</h1>
+
+    <form id="bmiForm">
+        <label for="weight">Weight in kilograms:</label>
+        <input type="number" id="weight" name="weight" min="1" required><br><br>
+
+        <label for="height">Height in meters:</label>
+        <input type="number" id="height" name="height" min="0.1" required><br><br>
+
+        <button type="button" onclick="calculateBtn()">Calculate</button>
+        <button type="button" onclick="resetBtn()">Reset</button>
+    </form>
+
+    <div class="results-container">
+        <h2>Your Results</h2>
+        <p id="bmiResult" class="results-container">Results:</p>
+        <img id="bmiImage" class="result-img" src="" alt="" style="display: none;">
+    </div>
+    
+</body>
+</html>
